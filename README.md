@@ -1,4 +1,4 @@
-# Async.js
+# Async.iced
 
 Async is a utility module which provides straight-forward, powerful functions
 for working with asynchronous JavaScript. Although originally designed for
@@ -10,6 +10,8 @@ suspects (map, reduce, filter, each…) as well as some common patterns
 for asynchronous control flow (parallel, series, waterfall…). All these
 functions assume you follow the node.js convention of providing a single
 callback as the last argument of your async function.
+
+Async.iced is a rewrite using idiomatic [IcedCoffeeScript](http://maxtaco.github.io/coffee-script/).
 
 
 ## Quick Examples
