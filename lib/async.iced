@@ -127,8 +127,8 @@ filter = select = (arr, iterator, autocb) ->
     keep = []
     await
         for item, i in arr
-            do (item, i, autocb=defer()) ->
-                await iterator item, defer keep[i]
+            do (item, defer_=defer keep[i]) ->
+                await iterator item, defer_
     kept = (item for item, i in arr when keep[i])
     return kept
 
@@ -143,8 +143,8 @@ reject = (arr, iterator, autocb) ->
     discard = []
     await
         for item, i in arr
-            do (item, i, autocb=defer()) ->
-                await iterator item, defer discard[i]
+            do (item, defer_=defer discard[i]) ->
+                iterator item, defer_
     kept = (item for item, i in arr when not discard[i])
     return kept
 
@@ -204,7 +204,7 @@ every = all = (arr, iterator, cb) ->
         for item in arr
             do (item, autocb=defer()) ->
                 await iterator item, defer satisfied
-                cb false unless satisfied
+                return cb false unless satisfied
     cb true
 
 concat = (arr, iterator, cb) ->
@@ -309,10 +309,10 @@ applyEachSeries = (functions, args..., autocb) ->
     return null
 
 queue = (worker, concurrency) ->
-    throw 'nyi'
+    raise new Error 'not yet implemented'
 
 cargo = (worker, payload) ->
-    throw 'nyi'
+    raise new Error 'not yet implemented'
 
 auto = (tasks, cb) ->
     # UNDOCUMENTED error provides results, i.e., cb(err, results)
@@ -333,8 +333,7 @@ auto = (tasks, cb) ->
                             unless results.hasOwnProperty dependency
                                 # XXX push would be faster, but fails unit tests
                                 dependencies[dependency].unshift defer()
-                await
-                    task defer(err, result...), results
+                await task defer(err, result...), results
                 switch result.length
                     when 0
                         result = undefined
@@ -388,8 +387,10 @@ timesSeries = (n, iterator, cb) ->
     cb null, results
 
 memoize = (fn, hasher) ->
+    raise new Error 'not yet implemented'
 
 unmemoize = (fn) ->
+    raise new Error 'not yet implemented'
 
 log = (fn, args...) ->
     await fn args..., defer err, messages...
